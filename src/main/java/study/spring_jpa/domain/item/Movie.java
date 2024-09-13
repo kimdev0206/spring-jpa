@@ -1,4 +1,4 @@
-package study.spring_jpa1.domain.item;
+package study.spring_jpa.domain.item;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

@@ -1,4 +1,4 @@
-package study.spring_jpa1.domain.item;
+package study.spring_jpa.domain.item;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -6,11 +6,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@DiscriminatorValue("A")
+@DiscriminatorValue("B")
 @Getter @Setter
-public class Album extends Item {
+public class Book extends Item {
 
-  private String artist;
+  private String author;
 
-  private String etc;
+  private String isbn;
 }

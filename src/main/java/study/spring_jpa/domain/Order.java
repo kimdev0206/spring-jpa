@@ -1,4 +1,4 @@
-package study.spring_jpa1.domain;
+package study.spring_jpa.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

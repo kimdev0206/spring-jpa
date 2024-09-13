@@ -1,4 +1,4 @@
-package study.spring_jpa1.domain;
+package study.spring_jpa.domain;
 
 public enum OrderStatus {
   ORDER, CANCEL

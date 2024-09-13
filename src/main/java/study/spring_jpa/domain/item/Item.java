@@ -1,9 +1,9 @@
-package study.spring_jpa1.domain.item;
+package study.spring_jpa.domain.item;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-import study.spring_jpa1.domain.Category;
+import study.spring_jpa.domain.Category;
 
 import java.util.ArrayList;
 import java.util.List;
