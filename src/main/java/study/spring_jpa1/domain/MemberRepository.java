@@ -1,4 +1,4 @@
-package study.spring_jpa1;
+package study.spring_jpa1.domain;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

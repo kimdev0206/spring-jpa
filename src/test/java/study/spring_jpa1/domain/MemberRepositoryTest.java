@@ -1,4 +1,4 @@
-package study.spring_jpa1;
+package study.spring_jpa1.domain;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
