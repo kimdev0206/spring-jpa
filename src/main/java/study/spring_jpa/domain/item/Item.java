@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import study.spring_jpa.domain.Category;
+import study.spring_jpa.exception.NotEnoughQuantityException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,4 +27,16 @@ public abstract class Item {
 
   @ManyToMany(mappedBy = "items")
   private List<Category> categories = new ArrayList<>();
+
+  public void addQuantity(int quantity) {
+    this.quantity += quantity;
+  }
+
+  public void removeQuantity(int quantity) {
+    if(this.quantity - quantity < 0) {
+      throw new NotEnoughQuantityException("재고가 부족합니다.");
+    }
+
+    this.quantity -= quantity;
+  }
 }
