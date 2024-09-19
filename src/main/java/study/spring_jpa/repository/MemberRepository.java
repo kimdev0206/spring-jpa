@@ -44,7 +44,7 @@ public class MemberRepository {
     """;
 
     return em.createQuery(qlString, Member.class)
-      .setParameter("name", name)
-      .getResultList();
-  }
+            .setParameter("name", name)
+            .getResultList();
+    }
 }

@@ -1,0 +1,41 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}" />
+<body>
+  <div class="container">
+
+    <div th:replace="~{fragments/bodyHeader :: bodyHeader}" />
+
+    <form th:object="${memberForm}" action="/members/new" method="post">
+      <div>
+        <label th:for="name">이름</label>
+        <input th:field="*{name}" type="text" placeholder="이름을 입력하세요." />
+        <p
+          th:if="${#fields.hasErrors('name')}"
+          th:errors="*{name}">
+          Incorrect data
+        </p>
+      </div>
+
+      <div>
+        <label th:for="city">도시</label>
+        <input th:field="*{city}" type="text" placeholder="도시를 입력하세요." />
+      </div>
+
+      <div>
+        <label th:for="street">거리</label>
+        <input th:field="*{street}" type="text" placeholder="거리를 입력하세요." />
+      </div>
+
+      <div>
+        <label th:for="zipcode">우편번호</label>
+        <input th:field="*{zipcode}" type="text" placeholder="우편번호를 입력하세요." />
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <div th:replace="~{fragments/footer :: footer}" />
+  </div>
+</body>
+</html>

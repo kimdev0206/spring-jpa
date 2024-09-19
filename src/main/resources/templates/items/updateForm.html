@@ -1,0 +1,43 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}" />
+<body>
+<div class="container">
+
+  <div th:replace="~{fragments/bodyHeader :: bodyHeader}" />
+
+  <form th:object="${itemForm}" method="post">
+    <input th:field="*{id}" type="hidden" />
+
+    <div>
+      <label th:for="name">상품명</label>
+      <input th:field="*{name}" type="text" placeholder="상품명을 입력하세요." />
+    </div>
+
+    <div>
+      <label th:for="price">가격</label>
+      <input th:field="*{price}" type="number" placeholder="가격을 입력하세요." />
+    </div>
+
+    <div>
+      <label th:for="quantity">수량</label>
+      <input th:field="*{quantity}" type="number" placeholder="수량을 입력하세요." />
+    </div>
+
+    <div>
+      <label th:for="author">저자</label>
+      <input th:field="*{author}" type="text" placeholder="저자를 입력하세요." />
+    </div>
+
+    <div>
+      <label th:for="isbn">isbn</label>
+      <input th:field="*{isbn}" type="text" placeholder="ISBN을 입력하세요." />
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div th:replace="~{fragments/footer :: footer}" />
+</div>
+</body>
+</html>

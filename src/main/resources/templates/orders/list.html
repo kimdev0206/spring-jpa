@@ -1,0 +1,77 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}" />
+<style th:inline="css">
+  form div {
+    display: inline;
+  }
+</style>
+<body>
+<div class="container">
+
+  <div th:replace="~{fragments/bodyHeader :: bodyHeader}" />
+
+  <div>
+    <form th:object="${orderSearch}">
+      <div>
+        <input th:field="*{memberName}" type="text" placeholder="회원명을 입력하세요." />
+      </div>
+
+      <div>
+        <select th:field="*{orderStatus}">
+          <option value="">주문상태</option>
+          <option
+            th:each="orderStatus : ${T(study.spring_jpa.domain.OrderStatus).values()}"
+            th:value="${orderStatus}"
+            th:text="${orderStatus}">
+          </option>
+        </select>
+      </div>
+
+      <button type="submit">검색</button>
+    </form>
+
+    <table>
+      <thead>
+      <tr>
+        <th>#</th>
+        <th>회원명</th>
+        <th>상품명</th>
+        <th>주문가격</th>
+        <th>주문수량</th>
+        <th>상태</th>
+        <th>일시</th>
+      </tr>
+      </thead>
+
+      <tbody>
+      <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.member.name}"></td>
+        <td th:text="${order.orderItems[0].item.name}"></td>
+        <td th:text="${order.orderItems[0].price}"></td>
+        <td th:text="${order.orderItems[0].count}"></td>
+        <td th:text="${order.status}"></td>
+        <td th:text="${order.orderDatetime}"></td>
+        <td>
+          <a th:if="${order.status.name() == 'ORDER'}" th:href="'javascript:cancel('+ ${order.id} +')'">취소</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div th:replace="~{fragments/footer :: footer}" />
+</div>
+</body>
+<script th:inline="javascript">
+  function cancel(orderId) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", `/orders/${orderId}/cancel`);
+    document.body.appendChild(form);
+
+    form.submit();
+  }
+</script>
+</html>

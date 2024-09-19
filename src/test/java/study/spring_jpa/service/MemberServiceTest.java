@@ -37,7 +37,7 @@ public class MemberServiceTest {
   }
 
   @Test(expected = IllegalStateException.class)
-  public void 중복_회원_예외() {
+  public void 회원가입_중복회원() {
     // given
     Member memberA = new Member();
     memberA.setName("member");
@@ -50,6 +50,6 @@ public class MemberServiceTest {
     memberService.save(memberB);
 
     // then
-    fail("예외가 발생해야 합니다.");
+    fail("중복 회원 예외가 발생해야 합니다.");
   }
 }
