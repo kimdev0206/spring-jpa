@@ -33,10 +33,7 @@ public class OrderItem {
     this.item.addQuantity(this.count);
   }
 
-  public int getTotalPrice() {
-    return this.price * this.count;
-  }
-
+  // 생성 메서드 //
   public static OrderItem create(Item item, int price, int count) {
     OrderItem orderItem = new OrderItem();
     orderItem.item = item;
@@ -46,5 +43,10 @@ public class OrderItem {
     item.removeQuantity(count);
 
     return orderItem;
+  }
+
+  // 테스트 메서드 //
+  public int getTotalPrice() {
+    return this.price * this.count;
   }
 }

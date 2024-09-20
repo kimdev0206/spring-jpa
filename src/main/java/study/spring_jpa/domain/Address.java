@@ -13,6 +13,7 @@ public class Address {
 
   private String zipcode;
 
+  // 생성 메서드 //
   public Address(String city, String street, String zipcode) {
     this.city = city;
     this.street = street;
