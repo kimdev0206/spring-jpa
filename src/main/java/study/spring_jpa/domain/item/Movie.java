@@ -3,11 +3,10 @@ package study.spring_jpa.domain.item;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 @DiscriminatorValue("M")
-@Getter @Setter
+@Getter
 public class Movie extends Item {
 
   private String director;

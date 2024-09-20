@@ -26,28 +26,30 @@ public class MemberServiceTest {
   @Test
   public void 회원가입() {
     // given
-    Member member = new Member();
-    member.setName("member");
+    String name = "member";
+    String city = "도시";
+    String street = "거리";
+    String zipcode = "우편번호";
 
     // when
-    Long savedId = memberService.save(member);
+    Long savedId = memberService.save(name, city, street, zipcode);
 
     // then
-    assertThat(memberRepository.find(savedId)).isEqualTo(member);
+    Member member = memberRepository.find(savedId);
+    assertThat(member.getId()).isEqualTo(savedId);
   }
 
   @Test(expected = IllegalStateException.class)
   public void 회원가입_중복회원() {
     // given
-    Member memberA = new Member();
-    memberA.setName("member");
-
-    Member memberB = new Member();
-    memberB.setName("member");
+    String name = "member";
+    String city = "도시";
+    String street = "거리";
+    String zipcode = "우편번호";
 
     // when
-    memberService.save(memberA);
-    memberService.save(memberB);
+    memberService.save(name, city, street, zipcode);
+    memberService.save(name, city, street, zipcode);
 
     // then
     fail("중복 회원 예외가 발생해야 합니다.");

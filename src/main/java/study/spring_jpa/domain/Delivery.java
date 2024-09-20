@@ -1,11 +1,12 @@
 package study.spring_jpa.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Delivery {
 
   @Id @GeneratedValue
@@ -13,9 +14,11 @@ public class Delivery {
   private Long id;
 
   @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
+  @Setter(AccessLevel.PROTECTED)
   private Order order;
 
   @Embedded
+  @Setter
   private Address address;
 
   @Enumerated(EnumType.STRING)

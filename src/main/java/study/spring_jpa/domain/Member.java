@@ -2,13 +2,12 @@ package study.spring_jpa.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Member {
 
   @Id @GeneratedValue
@@ -22,4 +21,9 @@ public class Member {
 
   @OneToMany(mappedBy = "member")
   private List<Order> orders = new ArrayList<>();
+
+  public void update(String name, Address address) {
+    this.name = name;
+    this.address = address;
+  }
 }

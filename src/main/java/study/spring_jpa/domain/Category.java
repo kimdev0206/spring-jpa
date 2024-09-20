@@ -2,14 +2,13 @@ package study.spring_jpa.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.Setter;
 import study.spring_jpa.domain.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Category {
 
   @Id @GeneratedValue
@@ -35,6 +34,6 @@ public class Category {
 
   public void addChildCategory(Category child) {
     this.children.add(child);
-    child.setParent(this);
+    child.parent = this;
   }
 }

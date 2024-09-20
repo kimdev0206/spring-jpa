@@ -8,7 +8,7 @@ import lombok.Setter;
 import study.spring_jpa.domain.item.Item;
 
 @Entity
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OrderItem {
 
@@ -22,6 +22,7 @@ public class OrderItem {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "order_id")
+  @Setter(AccessLevel.PROTECTED)
   private Order order;
 
   private int price;
@@ -38,9 +39,9 @@ public class OrderItem {
 
   public static OrderItem create(Item item, int price, int count) {
     OrderItem orderItem = new OrderItem();
-    orderItem.setItem(item);
-    orderItem.setPrice(price);
-    orderItem.setCount(count);
+    orderItem.item = item;
+    orderItem.price = price;
+    orderItem.count = count;
 
     item.removeQuantity(count);
 

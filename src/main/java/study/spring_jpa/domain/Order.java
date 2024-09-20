@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "orders")
-@Getter @Setter
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
@@ -60,8 +59,8 @@ public class Order {
       order.addOrderItem(orderItem);
     }
 
-    order.setStatus(OrderStatus.ORDER);
-    order.setOrderDatetime(LocalDateTime.now());
+    order.status = OrderStatus.ORDER;
+    order.orderDatetime = LocalDateTime.now();
 
     return order;
   }

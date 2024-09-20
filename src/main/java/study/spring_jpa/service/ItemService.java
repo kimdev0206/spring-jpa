@@ -16,11 +16,13 @@ public class ItemService {
   private final ItemRepository itemRepository;
 
   @Transactional
-  public void save(String name, int price, int quantity, String author, String isbn) {
+  public Item save(String name, int price, int quantity, String author, String isbn) {
     Book item = new Book();
     item.update(name, price, quantity, author, isbn);
 
     itemRepository.save(item);
+
+    return item;
   }
 
   @Transactional

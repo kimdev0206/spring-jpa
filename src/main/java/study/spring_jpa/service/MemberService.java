@@ -3,6 +3,7 @@ package study.spring_jpa.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.spring_jpa.domain.Address;
 import study.spring_jpa.domain.Member;
 import study.spring_jpa.repository.MemberRepository;
 
@@ -15,15 +16,19 @@ public class MemberService {
   private final MemberRepository memberRepository;
 
   @Transactional
-  public Long save(Member member) {
-    validateDuplicateMember(member);
+  public Long save(String name, String city, String street, String zipcode) {
+    Address address = new Address(city, street, zipcode);
+    Member member = new Member();
+    member.update(name, address);
+
+    validateDuplicateMember(member.getName());
     memberRepository.save(member);
 
     return member.getId();
   }
 
-  private void validateDuplicateMember(Member member) {
-    List<Member> findMembers = memberRepository.findByName(member.getName());
+  private void validateDuplicateMember(String name) {
+    List<Member> findMembers = memberRepository.findByName(name);
 
     if (!findMembers.isEmpty()) {
       throw new IllegalStateException("이미 존재하는 회원입니다.");

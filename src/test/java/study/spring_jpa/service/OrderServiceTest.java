@@ -1,17 +1,13 @@
 package study.spring_jpa.service;
 
-import jakarta.persistence.EntityManager;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import study.spring_jpa.domain.Address;
-import study.spring_jpa.domain.Member;
 import study.spring_jpa.domain.Order;
 import study.spring_jpa.domain.OrderStatus;
-import study.spring_jpa.domain.item.Book;
 import study.spring_jpa.domain.item.Item;
 import study.spring_jpa.exception.NotEnoughQuantityException;
 import study.spring_jpa.repository.OrderRepository;
@@ -24,24 +20,23 @@ import static org.assertj.core.api.Assertions.fail;
 @Transactional
 public class OrderServiceTest {
 
-  @Autowired
-  EntityManager em;
+  @Autowired ItemService itemService;
 
-  @Autowired
-  OrderService orderService;
+  @Autowired MemberService memberService;
 
-  @Autowired
-  OrderRepository orderRepository;
+  @Autowired OrderService orderService;
+
+  @Autowired OrderRepository orderRepository;
 
   @Test
   public void 상품주문() {
     // given
-    Member member = createMember();
+    Long memberId = createMember();
     Item book = createBook();
     int orderCount = 2;
 
     // when
-    Long orderId = orderService.save(member.getId(), book.getId(), orderCount);
+    Long orderId = orderService.save(memberId, book.getId(), orderCount);
     Order order = orderRepository.find(orderId);
 
     // then
@@ -54,12 +49,12 @@ public class OrderServiceTest {
   @Test(expected = NotEnoughQuantityException.class)
   public void 상품주문_재고수량부족() {
     // given
-    Member member = createMember();
+    Long memberId = createMember();
     Item book = createBook();
     int orderCount = 11;
 
     // when
-    orderService.save(member.getId(), book.getId(), orderCount);
+    orderService.save(memberId, book.getId(), orderCount);
 
     // then
     fail("재고 수량 부족 예외가 발생해야 합니다.");
@@ -68,11 +63,11 @@ public class OrderServiceTest {
   @Test
   public void 주문취소() {
     // given
-    Member member = createMember();
+    Long memberId = createMember();
     Item book = createBook();
     int orderCount = 2;
 
-    Long orderId = orderService.save(member.getId(), book.getId(), orderCount);
+    Long orderId = orderService.save(memberId, book.getId(), orderCount);
 
     // when
     orderService.cancel(orderId);
@@ -83,22 +78,24 @@ public class OrderServiceTest {
     assertThat(book.getQuantity()).isEqualTo(10);
   }
 
-  private Member createMember() {
-    Member member = new Member();
-    member.setName("member");
-    member.setAddress(new Address("도시", "거리", "코드"));
-    em.persist(member);
+  private Long createMember() {
+    String name = "member";
+    String city = "도시";
+    String street = "거리";
+    String zipcode = "우편번호";
 
-    return member;
+    Long memberId = memberService.save(name, city, street, zipcode);
+    return memberId;
   }
 
   private Item createBook() {
-    Item book = new Book();
-    book.setName("book");
-    book.setPrice(10_000);
-    book.setQuantity(10);
-    em.persist(book);
+    String name = "book";
+    int price = 10_000;
+    int quantity = 10;
+    String author = "저자명";
+    String isbn = "isbn";
 
-    return book;
+    Item item = itemService.save(name, price, quantity, author, isbn);
+    return item;
   }
 }
