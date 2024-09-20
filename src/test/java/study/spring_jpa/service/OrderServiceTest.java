@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import study.spring_jpa.domain.Address;
 import study.spring_jpa.domain.Order;
 import study.spring_jpa.domain.OrderStatus;
 import study.spring_jpa.domain.item.Item;
@@ -83,8 +84,9 @@ public class OrderServiceTest {
     String city = "도시";
     String street = "거리";
     String zipcode = "우편번호";
+    Address address = new Address(city, street, zipcode);
 
-    Long memberId = memberService.save(name, city, street, zipcode);
+    Long memberId = memberService.save(name, address);
     return memberId;
   }
 

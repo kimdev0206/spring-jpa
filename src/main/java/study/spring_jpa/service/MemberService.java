@@ -16,8 +16,7 @@ public class MemberService {
   private final MemberRepository memberRepository;
 
   @Transactional
-  public Long save(String name, String city, String street, String zipcode) {
-    Address address = new Address(city, street, zipcode);
+  public Long save(String name, Address address) {
     Member member = new Member();
     member.update(name, address);
 

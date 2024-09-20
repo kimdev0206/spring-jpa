@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
+import study.spring_jpa.domain.Address;
 import study.spring_jpa.domain.Member;
 import study.spring_jpa.repository.MemberRepository;
 
@@ -30,9 +31,10 @@ public class MemberServiceTest {
     String city = "도시";
     String street = "거리";
     String zipcode = "우편번호";
+    Address address = new Address(city, street, zipcode);
 
     // when
-    Long savedId = memberService.save(name, city, street, zipcode);
+    Long savedId = memberService.save(name, address);
 
     // then
     Member member = memberRepository.find(savedId);
@@ -46,10 +48,11 @@ public class MemberServiceTest {
     String city = "도시";
     String street = "거리";
     String zipcode = "우편번호";
+    Address address = new Address(city, street, zipcode);
 
     // when
-    memberService.save(name, city, street, zipcode);
-    memberService.save(name, city, street, zipcode);
+    memberService.save(name, address);
+    memberService.save(name, address);
 
     // then
     fail("중복 회원 예외가 발생해야 합니다.");

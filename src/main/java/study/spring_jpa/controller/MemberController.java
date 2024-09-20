@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import study.spring_jpa.domain.Address;
 import study.spring_jpa.domain.Member;
 import study.spring_jpa.service.MemberService;
 
@@ -32,7 +33,8 @@ public class MemberController {
       return "members/createForm";
     }
 
-    memberService.save(form.getName(), form.getCity(), form.getStreet(), form.getZipcode());
+    Address address = new Address(form.getCity(), form.getStreet(), form.getZipcode());
+    memberService.save(form.getName(), address);
 
     return "redirect:/";
   }
