@@ -1,5 +1,6 @@
 package study.spring_jpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -20,6 +21,7 @@ public class Member {
   private Address address;
 
   @OneToMany(mappedBy = "member")
+  @JsonIgnore
   private List<Order> orders = new ArrayList<>();
 
   public void update(String name, Address address) {

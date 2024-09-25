@@ -50,4 +50,42 @@ public class OrderRepository {
     TypedQuery<Order> tq = em.createQuery(cq).setMaxResults(1000);
     return tq.getResultList();
   }
+
+  public List<Order> findAll() {
+    String qlString = """
+    SELECT
+      o
+    FROM
+      Order o
+    JOIN FETCH
+      o.member m
+    JOIN FETCH
+      o.delivery d
+    """;
+
+    return em.createQuery(qlString, Order.class)
+            .getResultList();
+  }
+
+  public List<OrderDto> findAllByDto() {
+    String qlString = """
+    SELECT
+      new study.spring_jpa.repository.OrderDto(
+        o.id,
+        m.name,
+        o.orderDatetime,
+        o.status,
+        d.address
+      )
+    FROM
+      Order o
+    JOIN
+      o.member m
+    JOIN
+      o.delivery d
+    """;
+
+    return em.createQuery(qlString, OrderDto.class)
+             .getResultList();
+  }
 }

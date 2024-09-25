@@ -1,5 +1,6 @@
 package study.spring_jpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -21,6 +22,7 @@ public class OrderItem {
   private Item item;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JsonIgnore
   @JoinColumn(name = "order_id")
   @Setter(AccessLevel.PROTECTED)
   private Order order;
